@@ -1,6 +1,6 @@
 package internship.ibm.task.Controllers;
 
-import internship.ibm.task.Models.Ticket;
+import internship.ibm.task.DTOs.TicketWithCommentDTO;
 import internship.ibm.task.Services.TicketService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tickets")
 public class TicketController {
+
     private final TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
@@ -18,14 +19,14 @@ public class TicketController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Ticket>> getAllTickets() {
-        List<Ticket> tickets = ticketService.getAllTickets();
+    public ResponseEntity<List<TicketWithCommentDTO>> getAllTickets() {
+        List<TicketWithCommentDTO> tickets = ticketService.getAllTickets();
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     @GetMapping("/{ticketId}")
-    public ResponseEntity<Ticket> getTicketById(@PathVariable Long ticketId) {
-        Ticket ticket = ticketService.getTicketById(ticketId);
+    public ResponseEntity<TicketWithCommentDTO> getTicketById(@PathVariable Long ticketId) {
+        TicketWithCommentDTO ticket = ticketService.getTicketById(ticketId);
         return new ResponseEntity<>(ticket, HttpStatus.OK);
      }
 }

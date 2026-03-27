@@ -15,10 +15,13 @@ import java.time.Instant;
 
 @Service
 public class CommentService {
-    private final CommentRepository commentRepository;
 
-    public CommentService(CommentRepository commentRepository) {
+    private final CommentRepository commentRepository;
+    private final HuggingFaceService huggingFaceService;
+
+    public CommentService(CommentRepository commentRepository, HuggingFaceService huggingFaceService) {
         this.commentRepository = commentRepository;
+        this.huggingFaceService = huggingFaceService;
     }
 
     public SimplePage<Comment> getAllComments(int page, int size) {
@@ -37,6 +40,8 @@ public class CommentService {
         comment.setText(createCommentRequest.text());
         comment.setCreatedAt(Instant.now());
         comment.setState(CommentState.PROCESSING);
-        return commentRepository.save(comment);
+        Comment savedComment = commentRepository.save(comment);
+        huggingFaceService.analyzeCommentAsync(savedComment.getId());
+        return savedComment;
     }
 }
