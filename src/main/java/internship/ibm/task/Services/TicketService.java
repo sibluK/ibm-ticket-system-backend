@@ -29,11 +29,8 @@ public class TicketService {
 
     public TicketWithCommentDTO getTicketById(Long ticketId) {
         Ticket ticket = ticketRepository.findById(ticketId)
-                .orElseThrow(() -> new ResourceNotFoundException("Ticket not found:" + ticketId));
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " + ticketId));
 
-        TicketWithCommentDTO mappedTicket = mapper.mapTicketWithCommentToDTO(ticket);
-        System.out.println(mappedTicket);
-
-        return mappedTicket;
+        return mapper.mapTicketWithCommentToDTO(ticket);
     }
 }

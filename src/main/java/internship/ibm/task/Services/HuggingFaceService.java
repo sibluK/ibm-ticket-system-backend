@@ -58,7 +58,7 @@ public class HuggingFaceService {
     @Transactional
     public void analyzeCommentAsync(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Comment not found:"  + commentId));
+                        .orElseThrow(() -> new ResourceNotFoundException("Comment not found: "  + commentId));
 
         try {
             AnalysisResult result = sendAnalyzeRequest(comment.getText());

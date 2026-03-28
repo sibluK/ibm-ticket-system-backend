@@ -4,14 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import internship.ibm.task.Enums.TicketCategory;
 import internship.ibm.task.Enums.TicketPriority;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.Instant;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "comment")
 public class Ticket {
 
     @Id
